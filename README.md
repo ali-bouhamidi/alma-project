@@ -1,29 +1,21 @@
-# README #
+# Alma Project #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Ce présent dépôt contient une intégration de la solution de paiement en plusieurs fois d'Alma, dans un site e-commerce basiqueen PHP.
 
-### What is this repository for? ###
+### Prérequis ###
+* PHP
+* Composer
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+### Installer les dépendances ###
 
-### How do I get set up? ###
+' composer install '
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+### Lancer le projet ###
 
-### Contribution guidelines ###
+' php bin/console server:start '
 
-* Writing tests
-* Code review
-* Other guidelines
+### Accéder au projet ###
 
-### Who do I talk to? ###
+Le projet sera alors accéssible à l'addresse suivante:
 
-* Repo owner or admin
-* Other community or team contact
+[  http://localhost:8000  ]
