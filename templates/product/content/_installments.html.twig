@@ -1,0 +1,47 @@
+<h2 class="md-3">
+	Echéancier
+</h2>
+<div class="row">
+
+	<div class="col-md-6">
+		<h5 class="card-title text-center">Payer en 3 fois</h5>
+		{% if content[0].eligible == true %}
+			{% for installement in content[0].installments %}
+				{% include 'product/content/_installment_item.html.twig' %}
+			{% endfor %}
+			<div class="card-body text-center">
+				<input type="radio" id="count3" name="count" value="3" checked>
+				<label for="count3">3 Echéances</label>
+			</div>
+		{% else %}
+			<h6 class="text-danger text-center">
+				Pas éligible pour ce type d'échéancier</h6>
+		{% endif %}
+	</div>
+	<div class="col-md-6">
+		<h5 class="card-title text-center">Payer en 4 fois</h5>
+		{% if content[1].eligible == true %}
+			{% for installement in content[1].installments %}
+				{% include 'product/content/_installment_item.html.twig' %}
+			{% endfor %}
+			<div class="card-body text-center">
+				<input type="radio" id="count4" name="count" value="4" checked>
+				<label for="count4">4 Echéances</label>
+			</div>
+		{% else %}
+			<div class="text-danger text-center">
+				<h6>Votre commande n'est pas éligible pour ce type d'échéancier</h6>
+				<ul>
+					<li>Montant minimum requis:
+						{{content[1].constraints.purchase_amount['minimum'] /100 }}
+						€
+					</li>
+					<li>Montant maximum requis:
+						{{content[1].constraints.purchase_amount['maximum'] /100 }}
+						€
+					</li>
+				</ul>
+			</div>
+		</div>
+	{% endif %}
+</div></div>

@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Panier - Alma Project
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<div class="text-center m-5">
+			<h2>Alma Project</h2>
+		</div>
+
+		<div class="card-header bg-dark text-light">
+			<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+			Votre Panier
+			<a href="{{path('home')}}" class="btn btn-outline-info btn-sm pull-right">Retour</a>
+			<div class="clearfix"></div>
+		</div>
+		{% if quantity %}
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-2 text-center">
+						<img class="img-responsive" src="{{product.image}}&w=160&q=120" alt="prewiew">
+					</div>
+					<div class="col-md-6">
+						<h4>
+							{{product.name}}
+						</h4>
+						<p>
+							{{product.description}}
+						</p>
+					</div>
+					<div class=" col-md-4 text-right row">
+						<div class="col-md-6 text-right" style="padding-top: 5px">
+							<h6>
+								<strong id="unit_price">{{product.price|number_format(2, '.', ',') }}</strong>
+								€
+								<span class="text-muted ml-2">x</span>
+
+							</h6>
+						</div>
+						<div class="col-md-4">
+							<input type="number" style="max-width: 70px;" step="1" max="99" min="1" value="{{quantity}}" title="Qty" size="4" onchange="changeQuantity(this.value)">
+						</div>
+						<div class="col-md-2 text-right">
+							<a href="{{path('remove_from_cart')}}" type="button" class="btn btn-outline-danger btn-xs">
+								<i class="fa fa-trash" aria-hidden="true"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+
+
+					<div class="col-md-10">
+						<div class="pull-right">
+							Prix Total:
+							<strong id="total">{{total_price|number_format(2, '.', ',') }}
+								€</strong>
+						</div>
+					</div>
+					<div class="col-md-2 ">
+						<div class="pull-right">
+							<form action="{{path('payement_eligibility')}}" method="post">
+								<input type="hidden" name="totalprice" id="totalprice" value=""/>
+								<input type="hidden" name="quantity" id="quantity" value=""/>
+								<input type="submit" class="btn btn-info" value="Payer avec Alma"/>
+							</form>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+			<div class="m-4">
+
+				{% if error is defined  %}
+					<h6>
+						Une erreure s'est produite</h6>
+					<ul>
+						{% for key, value in error.error %}
+							<li class="text-danger">{{ key }}:
+								{{ value|e }}</li>
+						{% endfor %}
+					</ul>
+
+				{% endif %}
+
+
+			</div>
+			{% if content is defined and eligible == true %}
+				<div class="m-4">
+					{% include 'product/content/_alma_payement.html.twig' %}
+				</div>
+			{% elseif content is defined and eligible == false %}
+				<div class="text-danger text-center">
+					<h6>Votre commande n'est pas éligible pour un paiement en plusieurs fois</h6>
+
+					<ul>
+						<li>Montant minimum requis:
+							{{content[0].constraints.purchase_amount['minimum'] /100 }}
+							€
+						</li>
+						<li>Montant maximum requis:
+							{{content[0].constraints.purchase_amount['maximum'] /100 }}
+							€
+						</li>
+					</ul>
+				</div>
+			{% endif %}
+
+		{% else %}
+			<div class="card-body">
+				<div class="row">
+					<p>Aucun produit dans votre panier
+					</p>
+				</div>
+			</div>
+			<div class="card-footer">
+				<a href="{{path('home')}}" class="btn btn-success pull-right">Effectuer des achats</a>
+			</div>
+		{% endif %}
+	{% endblock %}
+
+	{% block javascripts %}
+		<script>
+			function changeQuantity(val) {
+let unit_price = document.getElementById("unit_price").innerHTML
+
+let newtotal = val * unit_price
+
+document.getElementById("total").innerHTML = newtotal.toFixed(2) + ' €'
+
+document.getElementById("totalprice").value = newtotal.toFixed(2)
+document.getElementById("quantity").value = val
+}
+		</script>
+	{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{product.name}}
+	- Alma Project
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="text-center m-5">
+			<h2>Alma Project</h2>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<img src="{{product.image}}&w=550&q=80"/>
+			</div>
+			<div class="col-md-6">
+				<div>
+					<div>
+						<h4>{{product.name}}</h4>
+						<h5>{{ product.price|number_format(2, '.', ',') }}€</h5>
+					</div>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					<div>
+						<form action="{{path("add_to_cart")}}" method="post">
+							<input type="number" name="quantity" id="quantity" value="1" min="1" max="99" style="max-width: 70px;">
+							<input type="submit" value="Ajouter au panier" class="btn btn-warning">
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Descritpion</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a>
+			</li>
+
+		</ul>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">{{product.description}}</div>
+			<div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">Aucun avis pour ce product.</div>
+		</div>
+
+	</div>
+{% endblock %}

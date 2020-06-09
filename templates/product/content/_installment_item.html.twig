@@ -1,0 +1,23 @@
+<ul class="list-group">
+	<li class="list-group-item">
+		<div class="row ">
+			<div class="col-md-4 text-center">
+				{{ installement.due_date| date("d - m - Y") }}
+			</div>
+			<div class="col-md-8 text-info">
+				<h6>
+					{{ installement.net_amount / 100 |number_format(2, '.', ',')  }}
+					€
+					{% if installement.customer_fee !=0 %}
+						+
+
+						<small>{{installement.customer_fee / 100 |number_format(2, '.', ',') }}
+							€ (frais de service)</small>
+					{% endif %}
+				</h6>
+
+			</div>
+
+		</div>
+	</li>
+</ul>

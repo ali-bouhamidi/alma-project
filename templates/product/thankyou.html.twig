@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Merci pour votre paiement
+{% endblock %}
+
+{% block body %}
+	<div class="jumbotron text-center">
+		<h1 class="display-3">Merci pour votre achat!</h1>
+		<p class="lead">
+			<strong>Alma Project vous remercie pour votre confiance.</strong><br>
+			A très bientôt!
+		</p>
+		<hr>
+		<h6>Votre identifiant de paiement est:
+			<p class="text-info m-4">
+
+				{{pid}}
+			</p>
+			<p class="lead">
+				<a class="btn btn-primary btn-sm" href="{{path('home')}}" role="button">Revenir à la page d'accueil</a>
+			</p>
+		</div>
+	{% endblock %}
